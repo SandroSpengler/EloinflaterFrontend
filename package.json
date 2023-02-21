@@ -36,6 +36,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@sveltejs/adapter-node": "^1.1.6"
+		"@sveltejs/adapter-node": "^1.1.6",
+		"svelte-heros": "^2.6.0"
 	}
 }
