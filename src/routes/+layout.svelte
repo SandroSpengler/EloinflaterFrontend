@@ -3,13 +3,15 @@
 	import '../app.css';
 </script>
 
-<div>
-	<main>
-		<Header />
+<header class="bg-white dark:bg-primary dark:text-white">
+	<Header />
+</header>
 
+<body class="bg-white dark:bg-neutral-900 dark:text-white">
+	<main>
 		<slot />
 	</main>
-</div>
+</body>
 
-<style>
+<style lang="postcss">
 </style>
