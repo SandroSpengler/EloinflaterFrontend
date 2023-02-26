@@ -252,7 +252,8 @@ module.exports = {
 		},
 		extend: {
 			colors: {
-				primary: '#1D1D42'
+				primary: '#1D1D42',
+				secondary: ''
 			}
 		},
 		fill: ({ theme }) => ({

@@ -1,3 +1,6 @@
+<script>
+</script>
+
 <div class="flex flex-row justify-between p-5">
 	<div class="sm:text-xl md:text-2xl font-bold">
 		<h1><a href="/">Eloinflater</a></h1>

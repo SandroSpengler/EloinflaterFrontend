@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type ISummoner from 'src/Interfaces/ISummoner';
+	import type ISummoner from 'src/interfaces/ISummoner';
 
 	export let data: { summoner: ISummoner };
 

@@ -1,7 +1,7 @@
 import { PUBLIC_HOST_URL } from '$env/static/public';
 import { error } from '@sveltejs/kit';
 
-import type ISummoner from 'src/Interfaces/ISummoner';
+import type ISummoner from 'src/interfaces/ISummoner';
 
 import type { PageLoad } from './$types';
 
