@@ -1,8 +1,11 @@
 <script lang="ts">
-	import { getSummonerByName } from '../services/HttpService';
-	import { MagnifyingGlass } from 'svelte-heros-v2';
 	import { goto } from '$app/navigation';
+
 	import type IHttpError from 'src/interfaces/IHttpError';
+
+	import { MagnifyingGlass } from 'svelte-heros-v2';
+
+	import { getSummonerByName } from '../services/HttpService';
 	import { displayToast } from '../stores/NotificationToast';
 
 	let searchedSummonerName: string = '';
@@ -11,7 +14,7 @@
 		if (searchedSummonerName === null || searchedSummonerName === '') {
 			displayToast({
 				type: 'info',
-				message: 'Please provide the name of a summoner to search for'
+				message: 'Please provide a Summoner Name'
 			});
 
 			return;

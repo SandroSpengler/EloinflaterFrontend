@@ -8,7 +8,9 @@
 	<Header />
 </header>
 
-<body class="bg-white dark:bg-neutral-900 dark:text-white sm:text-base md:text-lg">
+<body
+	class="bg-white dark:bg-neutral-900 dark:text-white sm:text-base md:text-lg focus:outline-none"
+>
 	<main>
 		<slot />
 	</main>
