@@ -6,6 +6,12 @@
 	const summoner: ISummoner = data.summoner;
 </script>
 
-<h2>Summoner Page!</h2>
+<div class="bg-red-400 grid grid-cols-12 gap-4 mx-auto w-full md:w-10/12 p-4">
+	<div class="bg-green-300 col-span-full md:col-span-4 order-1 md:order-1">
+		<h2>{summoner.name}</h2>
+	</div>
 
-<h2>{summoner.name}</h2>
+	<div class="bg-green-300 col-span-full md:col-span-4 order-2 md:order-3">Summoner Stats</div>
+
+	<div class="bg-green-300 col-span-full md:col-span-8 order-3 md:order-2">Matches</div>
+</div>
