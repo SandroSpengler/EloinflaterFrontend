@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 
-	import type IHttpError from 'src/interfaces/IHttpError';
+	import type IHttpError from '../interfaces/IHttpError';
 
 	import { MagnifyingGlass } from 'svelte-heros-v2';
 

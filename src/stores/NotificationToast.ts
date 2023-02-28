@@ -11,6 +11,12 @@ const displayToast = (toast: toast): void => {
 	toast.message = toast.message ? toast.message : 'n/a';
 	toast.timeout = toast.timeout ? toast.timeout : 3000;
 
+	toasts.subscribe((element) => {
+		if (element.length > 5) {
+			toasts.update((allToasts) => []);
+		}
+	});
+
 	toasts.update((allToasts) => [toast, ...allToasts]);
 
 	setTimeout(() => {
