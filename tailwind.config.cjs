@@ -252,7 +252,19 @@ module.exports = {
 		},
 		extend: {
 			colors: {
-				primary: '#1D1D42',
+				// Primary - #1D1D42
+				// ShadeGenerator - https://mdigi.tools/color-shades/#1d1d42
+				primary: {
+					100: '#1D1D42',
+					200: '#c4c4e5',
+					300: '#9d9dd4',
+					400: '#7575c2',
+					500: '#4e4eb1',
+					600: '#3d3d8a',
+					700: '#2b2b62',
+					800: '#1a1a3b',
+					900: '#090914'
+				},
 				secondary: ''
 			}
 		},
