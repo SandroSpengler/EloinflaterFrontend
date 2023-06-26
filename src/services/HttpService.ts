@@ -1,18 +1,20 @@
-import type ISummoner from 'src/interfaces/ISummoner';
-
 import { PUBLIC_HOST_URL } from '$env/static/public';
-import type { HttpError } from '@sveltejs/kit';
-import type IHttpError from 'src/interfaces/IHttpError';
+import { error } from '@sveltejs/kit';
+
+import type IHttpError from '../interfaces/IHttpError';
+import type ISummoner from '../interfaces/ISummoner';
 
 const getSummonerByName = async (summonerName: string): Promise<ISummoner> => {
 	const url = `${PUBLIC_HOST_URL}/api/data/summoner/${summonerName}`;
 
 	const response = await fetch(url);
 
-	if (response.status !== 200) {
-		const httpError: IHttpError = await response.json();
+	if (response.status === 404) {
+		return await postSummonerByName(summonerName);
+	}
 
-		throw new Error(httpError.message);
+	if (response.status !== 200) {
+		throw new Error(await handleHTTPError(response));
 	}
 
 	const responseBody: ISummoner = await response.json();
@@ -20,4 +22,58 @@ const getSummonerByName = async (summonerName: string): Promise<ISummoner> => {
 	return responseBody;
 };
 
-export { getSummonerByName };
+/**
+ * Checks if Riot Games finds a Summoner with that name
+ *
+ * @param summonerName
+ * @returns The Riot Games Summoner
+ */
+const postSummonerByName = async (summonerName: string): Promise<ISummoner> => {
+	const url = `${PUBLIC_HOST_URL}/api/data/summoner/${summonerName}`;
+
+	const options: RequestInit = {
+		method: 'POST'
+	};
+
+	const response = await fetch(url, options);
+
+	if (response.status !== 200) {
+		throw new Error(await handleHTTPError(response));
+	}
+	const responseBody: ISummoner = await response.json();
+
+	return responseBody;
+};
+
+const updateSummonerById = async (summonerId: string): Promise<void> => {
+	const url = `${PUBLIC_HOST_URL}/api/data/summoner/${summonerId}`;
+
+	const options: RequestInit = {
+		method: 'PUT'
+	};
+
+	const response = await fetch(url, options);
+
+	if (response.status !== 200) {
+		throw new Error(await handleHTTPError(response));
+	}
+	// const responseBody: ISummoner = await response.json();
+};
+
+const handleHTTPError = async (response: Response): Promise<string> => {
+	const httpError: IHttpError = await response.json();
+
+	if (httpError.httpStatusCode === 500) {
+		return `Please try again later: ${httpError.message}`;
+	}
+	if (httpError.httpStatusCode === 400) {
+		return 'Summoner was already updated recently';
+	}
+	if (httpError.httpStatusCode === 404) {
+		return 'The requested Summoner does not exist';
+	}
+
+	return `Please try again later: ${httpError.message}`;
+};
+
+export { getSummonerByName, updateSummonerById, postSummonerByName };

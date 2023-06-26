@@ -5,7 +5,7 @@
 
 	import { MagnifyingGlass } from 'svelte-heros-v2';
 
-	import { getSummonerByName } from '../services/HttpService';
+	import { getSummonerByName, postSummonerByName } from '../services/HttpService';
 	import { displayToast } from '../stores/NotificationToast';
 
 	let searchedSummonerName: string = '';

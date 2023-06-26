@@ -31,7 +31,7 @@
 						<XCircle size="30" />
 					{/if}
 				</div>
-				<div class="p-3 dark:bg-primary rounded-r-md">
+				<div class="p-3 dark:bg-primary-700 rounded-r-md">
 					{toast.message}
 				</div>
 			</div>
