@@ -5,12 +5,17 @@
 	import moment from 'moment';
 	import type ISummoner from '../../../../../interfaces/ISummoner';
 
-	import { getSummonerByName, updateSummonerById } from '../../../../../services/HttpService';
+	import {
+		getSummonerByName,
+		updateSummonerById,
+		updateSummonerMatchesBySummonerId
+	} from '../../../../../services/HttpService';
 	import { displayToast } from '../../../../../stores/NotificationToast';
 	import type IHttpError from '../../../../../interfaces/IHttpError';
 	import { load } from '../../leaderboard/+page';
 	import Error from '../../../../+error.svelte';
 	import type { TestStatus } from '@playwright/test';
+	import SummonerStats from '../../../../../components/SummonerStats.svelte';
 
 	export let data: { summoner: ISummoner };
 
@@ -36,7 +41,7 @@
 		loading = true;
 
 		const updateSummoner = updateSummonerById(summoner.id);
-		const updateMatches = updateSummonerById(summoner.id);
+		const updateMatches = updateSummonerMatchesBySummonerId(summoner.id);
 
 		try {
 			const settledRequests = await Promise.allSettled([updateSummoner, updateMatches]);
@@ -76,22 +81,53 @@
 			loading = false;
 		}
 	};
+
+	const calculateWinrate = (): Number => {
+		const totalMatches = summoner.wins + summoner.losses;
+
+		if (totalMatches === 0) {
+			return 0;
+		}
+
+		if (summoner.wins === 0) {
+			return 0;
+		}
+
+		if (summoner.losses === 0) {
+			return 100;
+		}
+
+		return parseInt(((summoner.wins / totalMatches) * 100).toFixed(0));
+	};
 </script>
 
 <div class="grid grid-cols-12 gap-4 mx-auto w-full md:w-11/12 p-4">
-	<div class="dark:bg-primary-700 col-span-full row-span-full md:col-span-4 order-1 md:order-1">
+	<div class="dark:bg-primary-700 col-span-full row-span-full md:col-span-3 order-1 md:order-1">
 		<div class="grid grid-cols-12">
 			<div class="row-span-1 col-span-4 p-2">
-				<img
-					class="rounded-xl content-center"
-					src="https://raw.communitydragon.org/latest/game/assets/ux/summonericons/profileicon{summoner.profileIconId}.png"
-					alt="profile icon"
-				/>
+				<div>
+					<img
+						class="rounded-xl content-center"
+						src="https://raw.communitydragon.org/latest/game/assets/ux/summonericons/profileicon{summoner.profileIconId}.png"
+						alt="profile icon"
+					/>
+				</div>
 			</div>
 			<div class="p-2 col-span-8">
 				<h1 class="text-2xl font-bold">{summoner.name}</h1>
 				<h3 class="text-base mt-2">Last Updated: {displayDate(summoner.updatedAt)}</h3>
-				<h1 class="text-base mt-1">
+			</div>
+
+			<div class="row-start-3 col-start-0 col-span-4 p-2 mx-auto">
+				<img
+					class="rounded-xl content-center aspect-square w-24"
+					src="https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-shared-components/global/default/{summoner.rankSolo.toLocaleLowerCase()}.png"
+					alt="profile icon"
+				/>
+			</div>
+
+			<div class="col-start-5 row-start-3 pl-2 col-span-3 pt-5">
+				<h1 class="text-base mt-1 font-bold">
 					{summoner.rankSolo ? summoner.rankSolo : 'Rank: n/a'}
 					&nbsp;
 					{summoner.rank ? summoner.rank : ''}
@@ -99,15 +135,19 @@
 				<h1 class="text-base mt-1">
 					{summoner.leaguePoints ? `${summoner.leaguePoints} LP ` : 'n/a'}
 				</h1>
+			</div>
+
+			<div class="col-start-8 row-start-3 col-span-4 text-right px-2 pt-5">
 				<h1 class="text-base mt-1">
 					W: {summoner.wins ? summoner.wins : 'n/a'}
 					&nbsp; L: {summoner.losses ? summoner.losses : 'n/a'}
 				</h1>
+				<h1 class="text-right px-2 font-bold">{calculateWinrate()} %</h1>
 			</div>
 
-			<div class="row-span-1 col-start-5 m-2">
+			<div class="row-span-1 col-start-5 m-2 row-start-4">
 				<button
-					class="rounded-lg dark:bg-blue-900 font-bold px-5 py-3 mt-4 flex content-center"
+					class="rounded-lg dark:bg-primary-800 font-bold px-5 py-3 mt-4 flex content-center"
 					on:click={() => updateSummoner()}
 					disabled={loading}
 					><p>Update</p>
@@ -121,11 +161,11 @@
 		</div>
 	</div>
 
-	<div class="dark:bg-primary-700 col-span-full md:col-span-4 order-2 md:order-3">
-		Summoner Stats
+	<div class="dark:bg-primary-700 col-span-full md:col-span-3 order-2 md:order-3 p-2">
+		<SummonerStats {summoner} />
 	</div>
 
-	<div class="dark:bg-primary-700 col-span-full row-span-6 md:col-span-8 order-3 md:order-2">
+	<div class="dark:bg-primary-700 col-span-full row-span-6 md:col-span-9 order-3 md:order-2">
 		<h1 class="text-2xl font-bold">Inflated Matches: {summoner.inflatedMatchList.length}</h1>
 
 		{#each summoner.uninflatedMatchList as match}

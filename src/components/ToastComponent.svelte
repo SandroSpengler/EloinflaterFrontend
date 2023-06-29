@@ -3,6 +3,7 @@
 
 	import { XCircle, InformationCircle } from 'svelte-heros-v2';
 	import { fly } from 'svelte/transition';
+	import type { toast } from '../types/toast';
 
 	const determineIconBackgroundColor = (toast: toast): string => {
 		if (toast.type === 'info') return 'dark:bg-orange-700 bg-orange-300';
