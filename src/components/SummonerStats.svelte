@@ -4,9 +4,7 @@
 
 	export let summoner: Summoner;
 
-	$: summoner && totalMatchCount() && console.log(summoner);
-
-	$: totalMatchCount = (): Number => {
+	const totalMatchCount = (summoner: Summoner): Number => {
 		let count = summoner.inflatedMatchList.length + summoner.uninflatedMatchList.length;
 		console.log(count);
 
@@ -17,7 +15,7 @@
 <div class="grid grid-cols-2 bg-primary-800 p-3 mb-4">
 	<div class="text-xl">Matches analyzed</div>
 
-	<div class="text-xl text-right font-bold">{totalMatchCount()}</div>
+	<div class="text-xl text-right font-bold">{totalMatchCount(summoner)}</div>
 </div>
 
 <div class="grid grid-cols-2 bg-primary-800 p-3 mb-4">

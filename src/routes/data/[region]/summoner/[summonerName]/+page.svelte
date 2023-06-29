@@ -1,25 +1,21 @@
 <script lang="ts">
-	import { invalidate, invalidateAll } from '$app/navigation';
 	import { RingLoader } from 'svelte-loading-spinners';
 
 	import moment from 'moment';
 	import type ISummoner from '../../../../../interfaces/ISummoner';
 
+	import SummonerStats from '../../../../../components/SummonerStats.svelte';
 	import {
 		getSummonerByName,
 		updateSummonerById,
 		updateSummonerMatchesBySummonerId
 	} from '../../../../../services/HttpService';
 	import { displayToast } from '../../../../../stores/NotificationToast';
-	import type IHttpError from '../../../../../interfaces/IHttpError';
-	import { load } from '../../leaderboard/+page';
-	import Error from '../../../../+error.svelte';
-	import type { TestStatus } from '@playwright/test';
-	import SummonerStats from '../../../../../components/SummonerStats.svelte';
 
 	export let data: { summoner: ISummoner };
 
-	$: summoner = data.summoner;
+	let summoner = data.summoner;
+
 	let loading: boolean = false;
 
 	/**
@@ -82,7 +78,7 @@
 		}
 	};
 
-	const calculateWinrate = (): Number => {
+	const calculateWinrate = (summoner: ISummoner): Number => {
 		const totalMatches = summoner.wins + summoner.losses;
 
 		if (totalMatches === 0) {
@@ -144,7 +140,7 @@
 					W: {summoner.wins ? summoner.wins : 'n/a'}
 					&nbsp; L: {summoner.losses ? summoner.losses : 'n/a'}
 				</h1>
-				<h1 class="text-right px-2 font-bold">{calculateWinrate()} %</h1>
+				<h1 class="text-right px-2 font-bold">{calculateWinrate(summoner)} %</h1>
 			</div>
 
 			<div class="row-span-1 col-start-5 m-2 row-start-4">
