@@ -19,7 +19,7 @@
 
 	export let data: { summoner: ISummoner };
 
-	let summoner: ISummoner = data.summoner;
+	$: summoner = data.summoner;
 	let loading: boolean = false;
 
 	/**
@@ -71,13 +71,13 @@
 					message: updateMatches.reason
 				});
 			}
-			summoner = await getSummonerByName(summoner.name);
 		} catch (error: any) {
 			displayToast({
 				type: 'error',
 				message: error.message
 			});
 		} finally {
+			summoner = await getSummonerByName(summoner.name);
 			loading = false;
 		}
 	};
@@ -119,11 +119,13 @@
 			</div>
 
 			<div class="row-start-3 col-start-0 col-span-4 p-2 mx-auto">
-				<img
-					class="rounded-xl content-center aspect-square w-24"
-					src="https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-shared-components/global/default/{summoner.rankSolo.toLocaleLowerCase()}.png"
-					alt="profile icon"
-				/>
+				{#if summoner.rankSolo !== ''}
+					<img
+						class="rounded-xl content-center aspect-square w-24"
+						src="https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-shared-components/global/default/{summoner.rankSolo.toLocaleLowerCase()}.png"
+						alt="rank icon"
+					/>
+				{/if}
 			</div>
 
 			<div class="col-start-5 row-start-3 pl-2 col-span-3 pt-5">

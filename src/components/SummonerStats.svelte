@@ -4,8 +4,11 @@
 
 	export let summoner: Summoner;
 
-	const totalMatchCount = (): Number => {
+	$: summoner && totalMatchCount() && console.log(summoner);
+
+	$: totalMatchCount = (): Number => {
 		let count = summoner.inflatedMatchList.length + summoner.uninflatedMatchList.length;
+		console.log(count);
 
 		return count;
 	};
