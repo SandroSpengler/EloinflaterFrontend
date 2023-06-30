@@ -16,4 +16,7 @@
 			An Error has occured while requesting data from the server. Please try again later.
 		</h2>
 	{/if}
+	{#if $page.status === 404}
+		<h2 class="text-lg">The requested ressource has not been found</h2>
+	{/if}
 </div>

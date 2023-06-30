@@ -3,25 +3,16 @@ import type ISummoner from '../../../../../interfaces/ISummoner';
 import { error } from '@sveltejs/kit';
 
 import type { PageLoad } from './$types';
+import { getMatchesBySummonerPUUID, getSummonerByName } from '../../../../../services/HttpService';
 
 // Useful for the Leaderboard
 // Summoners are requested after search action is triggered by the client
-export const load = (async ({ params }): Promise<{ summoner: ISummoner }> => {
+export async function load({ params }): Promise<{ summoner: ISummoner; matches: any }> {
 	const { region, summonerName } = params;
 
-	const url = `${PUBLIC_HOST_URL}/api/data/summoner/${summonerName}`;
+	const summoner = await getSummonerByName(summonerName);
 
-	const res: Response = await fetch(url);
+	const matches = await getMatchesBySummonerPUUID(summoner.puuid, 0, 30);
 
-	if (res.status === 404) {
-		throw error(404, 'Not found 😢');
-	}
-
-	if (res.status !== 200) {
-		throw new Error(`HTTP: ${res.statusText}`);
-	}
-
-	const summoner: ISummoner = await res.json();
-
-	return { summoner };
-}) satisfies PageLoad;
+	return { summoner, matches };
+}

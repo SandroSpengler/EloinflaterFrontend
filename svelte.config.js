@@ -9,6 +9,10 @@ const config = {
 	preprocess: vitePreprocess(),
 	kit: {
 		adapter: adapterNode()
+	},
+	onwarn: (warning, handler) => {
+		if (warning.code.startsWith('a11y-')) return;
+		handler(warning);
 	}
 };
 

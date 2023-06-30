@@ -61,6 +61,28 @@ const updateSummonerById = async (summonerId: string): Promise<void> => {
 	}
 };
 
+const getMatchesBySummonerPUUID = async (
+	summonerPUUID: string,
+	page: number = 0,
+	size: number = 30
+): Promise<any> => {
+	const url = `${PUBLIC_HOST_URL}/api/data/match/${summonerPUUID}`;
+
+	const options: RequestInit = {
+		method: 'GET'
+	};
+
+	const response = await fetch(url, options);
+
+	const responseBody: any = await response.json();
+
+	return responseBody;
+
+	if (response.status !== 200) {
+		throw new Error(await handleHTTPError(response, 'match'));
+	}
+};
+
 const updateSummonerMatchesBySummonerId = async (summonerId: string): Promise<void> => {
 	const url = `${PUBLIC_HOST_URL}/api/data/match/${summonerId}`;
 
@@ -103,5 +125,6 @@ export {
 	getSummonerByName,
 	updateSummonerById,
 	postSummonerByName,
+	getMatchesBySummonerPUUID,
 	updateSummonerMatchesBySummonerId
 };

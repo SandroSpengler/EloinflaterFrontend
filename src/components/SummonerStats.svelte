@@ -6,7 +6,6 @@
 
 	const totalMatchCount = (summoner: Summoner): Number => {
 		let count = summoner.inflatedMatchList.length + summoner.uninflatedMatchList.length;
-		console.log(count);
 
 		return count;
 	};

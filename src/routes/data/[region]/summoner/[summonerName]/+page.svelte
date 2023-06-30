@@ -11,10 +11,12 @@
 		updateSummonerMatchesBySummonerId
 	} from '../../../../../services/HttpService';
 	import { displayToast } from '../../../../../stores/NotificationToast';
+	import MatchHistory from '../../../../../components/MatchHistory.svelte';
 
-	export let data: { summoner: ISummoner };
+	export let data: { summoner: ISummoner; matches: any };
 
 	let summoner = data.summoner;
+	let matches = data.matches;
 
 	let loading: boolean = false;
 
@@ -164,10 +166,6 @@
 	</div>
 
 	<div class="dark:bg-primary-700 col-span-full row-span-6 md:col-span-9 order-3 md:order-2">
-		<h1 class="text-2xl font-bold">Inflated Matches: {summoner.inflatedMatchList.length}</h1>
-
-		{#each summoner.uninflatedMatchList as match}
-			{match} <br />
-		{/each}
+		<MatchHistory {matches} {summoner} />
 	</div>
 </div>
