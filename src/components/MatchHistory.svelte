@@ -1,10 +1,28 @@
 <script lang="ts">
 	import type IMatchData from '../interfaces/IMatch';
 	import type ISummoner from '../interfaces/ISummoner';
+	import { getMatchesBySummonerPUUID } from '../services/HttpService';
+
 	import Match from './MatchSummary.svelte';
 
 	export let matches: IMatchData[];
 	export let summoner: ISummoner;
+
+	let page = 0;
+	let size = matches.length;
+
+	const loadMoreMatches = async (
+		currentMatches: IMatchData[],
+		summoner: ISummoner
+	): Promise<void> => {
+		page += 1;
+
+		const newMatches: IMatchData[] = await getMatchesBySummonerPUUID(summoner.puuid, page, size);
+
+		console.log(page, size);
+
+		matches = [...currentMatches, ...newMatches];
+	};
 </script>
 
 <div class="container mx-auto px-2 py-12">
@@ -16,6 +34,11 @@
 				{#each matches as match}
 					<Match {match} {summoner} />
 				{/each}
+				<div class="flex flex-col p-4 rounded-xl bg-primary-800">
+					<button class="w-32 mx-auto" on:click={() => loadMoreMatches(matches, summoner)}
+						>Load More</button
+					>
+				</div>
 			</div>
 		</div>
 	</div>

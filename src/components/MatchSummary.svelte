@@ -70,11 +70,11 @@
 			<h3 class="md:text-xl font-bold">{match.info[0].gameType}</h3>
 		</div>
 
-		<div class="row-start-2 col-start-1 col-span-4 md:col-span-2">
+		<div class="row-start-2 col-start-1 col-span-4 md:col-span-3">
 			<h3 class="md:text-md font-semibold">{displayDate(match.info[0].gameEndTimestamp)}</h3>
 		</div>
 
-		<div class="row-start-3 col-start-1 col-span-3 md:col-span-2">
+		<div class="row-start-3 col-start-1 col-span-3 md:col-span-3">
 			<time class="text-sm uppercase dark:text-gray-100 mt-2"
 				>{new Date(convertTimestamp(match)).toLocaleTimeString()}</time
 			>
@@ -86,7 +86,7 @@
 			</time>
 		</div>
 
-		<div class="row-start-4 col-start-6 mx-auto">
+		<div class="row-start-4 col-start-6 col-span-2 mx-auto">
 			<button
 				on:click={() => {
 					showMatchDetail = !showMatchDetail;

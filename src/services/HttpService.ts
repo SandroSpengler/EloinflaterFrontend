@@ -2,6 +2,7 @@ import { PUBLIC_HOST_URL } from '$env/static/public';
 import { error } from '@sveltejs/kit';
 
 import type IHttpError from '../interfaces/IHttpError';
+import type IMatchData from '../interfaces/IMatch';
 import type ISummoner from '../interfaces/ISummoner';
 
 import type { requestEndpoint } from '../types/endpoint';
@@ -65,22 +66,27 @@ const getMatchesBySummonerPUUID = async (
 	summonerPUUID: string,
 	page: number = 0,
 	size: number = 30
-): Promise<any> => {
-	const url = `${PUBLIC_HOST_URL}/api/data/match/${summonerPUUID}`;
+): Promise<IMatchData[]> => {
+	const url = `${PUBLIC_HOST_URL}/api/data/match/${summonerPUUID}?`;
+
+	const urlParams = new URLSearchParams({
+		page: page.toString(),
+		size: size.toString()
+	});
 
 	const options: RequestInit = {
 		method: 'GET'
 	};
 
-	const response = await fetch(url, options);
+	const response = await fetch(url + urlParams, options);
 
-	const responseBody: any = await response.json();
-
-	return responseBody;
+	const responseBody: IMatchData[] = await response.json();
 
 	if (response.status !== 200) {
 		throw new Error(await handleHTTPError(response, 'match'));
 	}
+
+	return responseBody;
 };
 
 const updateSummonerMatchesBySummonerId = async (summonerId: string): Promise<void> => {
