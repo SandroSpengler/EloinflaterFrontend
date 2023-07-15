@@ -3,12 +3,27 @@
 
 	import { ArrowDownCircle, ArrowUpCircle } from 'svelte-heros-v2';
 
+	import maps from '../ressources/maps.json';
+	import queues from '../ressources/queues.json';
+	import champion from '../ressources/champion.json';
+	import summonerSpell from '../ressources/summoner.json';
+
 	import MatchDetail from './MatchDetail.svelte';
 	import type ISummoner from '../interfaces/ISummoner';
 	import type IMatchData from '../interfaces/IMatch';
+	import type { IMapType } from '../interfaces/IMapType';
+	import type { IQueueType } from '../interfaces/IQueueType';
+	import type { IChampionType, ChampionDetails } from '../interfaces/IChampionType';
+	import type { ISummonerSpellType, SummonerDetails } from '../interfaces/ISummonerSpellType';
+	import type { Champion, Participant } from '../interfaces/IMatch';
 
 	export let summoner: ISummoner;
 	export let match: IMatchData;
+
+	const mapTypes = maps as [IMapType];
+	const queueTypes = queues as [IQueueType];
+	const championType = champion as IChampionType;
+	const summonerSpellType = summonerSpell as ISummonerSpellType;
 
 	let showMatchDetail: boolean = false;
 
@@ -33,6 +48,14 @@
 		return converted;
 	};
 
+	const getParticipant = (match: IMatchData): Participant => {
+		const participant = match.info[0].participants.find((participant) => {
+			return participant.puuid === summoner.puuid;
+		});
+
+		return participant!;
+	};
+
 	const calculateGameLength = (match: IMatchData): string => {
 		const duration = moment.duration(match.info[0].gameDuration, 'seconds');
 
@@ -46,9 +69,7 @@
 	};
 
 	const checkHasSummonerWon = (match: IMatchData): boolean => {
-		const participantInfo = match.info[0].participants.find((participant) => {
-			return participant.puuid === summoner.puuid;
-		});
+		const participantInfo = getParticipant(match);
 
 		const participantTeam = match.info[0].teams.find((team) => {
 			return team.teamId === participantInfo?.teamId;
@@ -56,34 +77,139 @@
 
 		return participantTeam?.win!;
 	};
+
+	const determineGameQueue = (queueId: number): string => {
+		if (queueId === undefined) {
+			return 'n/a';
+		}
+
+		const queueType = queueTypes.find((queueType) => {
+			return queueType.queueId === queueId;
+		});
+
+		if (queueType === undefined || queueType.description === undefined) {
+			return 'n/a';
+		}
+
+		return queueType?.displayName;
+	};
+
+	const getChampionIconUrl = (match: IMatchData): string => {
+		const participantInfo = getParticipant(match);
+
+		const playedChampion: ChampionDetails = (championType.data as any)[
+			participantInfo.championName
+		];
+
+		return `http://ddragon.leagueoflegends.com/cdn/
+		13.13.1
+		/img/champion/
+		${playedChampion.image.full}`;
+	};
+
+	const getSummonerSpellUrl = (match: IMatchData, summonerSpellOrder: 1 | 2): string => {
+		const participantInfo = getParticipant(match);
+
+		// const equippedSummoner: SummonerDetails = summonerSpellType.data.map;
+
+		for (const [key, value] of Object.entries(summonerSpellType.data)) {
+			const castedValue: SummonerDetails = value;
+
+			const firstSummonerSpell = 1;
+			const secondSummonerSpell = 2;
+
+			if (summonerSpellOrder === firstSummonerSpell) {
+				if (castedValue.key === participantInfo.summoner1Id.toString()) {
+					return `http://ddragon.leagueoflegends.com/cdn/13.13.1/img/spell/${castedValue.id}.png`;
+				}
+			}
+
+			if (summonerSpellOrder === secondSummonerSpell) {
+				if (castedValue.key === participantInfo.summoner2Id.toString()) {
+					return `http://ddragon.leagueoflegends.com/cdn/13.13.1/img/spell/${castedValue.id}.png`;
+				}
+			}
+		}
+
+		return ``;
+	};
 </script>
 
 <div
-	class="flex flex-col p-4 sm:relative sm:before:absolute sm:before:left-[-35px] sm:before:top-2/4 sm:before:h-4 sm:before:w-4 sm:before:rounded-full rounded-xl bg-primary-800 {checkHasSummonerWon(
+	class="px-4 pt-4 sm:relative sm:before:absolute sm:before:left-[-35px] sm:before:top-2/4 sm:before:h-4 sm:before:w-4 sm:before:rounded-full rounded-xl bg-primary-800 {checkHasSummonerWon(
 		match
 	)
 		? 'before:bg-green-200'
 		: 'before:bg-red-300'}"
 >
-	<div class="grid grid-cols-12 grid-rows-4 h-32">
-		<div class="row-start-1 col-start-1 col-span-2">
-			<h3 class="md:text-xl font-bold">{match.info[0].gameType}</h3>
+	<div class="grid grid-cols-12 h-48">
+		<div class="grid grid-cols-12 grid-rows-4 col-span-2">
+			<div class="row-start-1 col-start-1 col-span-12">
+				<h3 class="md:text-xl font-bold">{determineGameQueue(match.info[0].queueId)}</h3>
+			</div>
+
+			<div class="row-start-2 col-start-1 col-span-12">
+				<h3 class="md:text-md font-semibold">{displayDate(match.info[0].gameEndTimestamp)}</h3>
+			</div>
+
+			<div class="row-start-3 col-start-1 col-span-12">
+				<time class="text-sm uppercase dark:text-gray-100 mt-2"
+					>{new Date(convertTimestamp(match)).toLocaleTimeString()}</time
+				>
+			</div>
+
+			<div class="row-start-4 col-start-1 col-span-12">
+				<time class="text-sm uppercase dark:text-gray-100 mt-2">
+					{calculateGameLength(match)}
+				</time>
+			</div>
 		</div>
 
-		<div class="row-start-2 col-start-1 col-span-4 md:col-span-3">
-			<h3 class="md:text-md font-semibold">{displayDate(match.info[0].gameEndTimestamp)}</h3>
-		</div>
+		<div class="grid grid-cols-12 grid-rows-4 p-3 col-span-3 col-start-3">
+			<div class="row-start-1 col-start-1 col-span-4 row-span-4 rounded-sm min-w-[48px]">
+				<div class="relative">
+					<img
+						class="rounded-xl content-center"
+						src={getChampionIconUrl(match)}
+						alt="champion icon"
+					/>
 
-		<div class="row-start-3 col-start-1 col-span-3 md:col-span-3">
-			<time class="text-sm uppercase dark:text-gray-100 mt-2"
-				>{new Date(convertTimestamp(match)).toLocaleTimeString()}</time
+					<span class="absolute p-1 mx-auto bottom-0 right-0 rounded-full bg-primary-900">
+						{getParticipant(match)?.champLevel}
+					</span>
+				</div>
+			</div>
+
+			<div class="col-span-2 p-1 row-span-1 md:row-span-2 bg-green-40 rounded-sm min-w-[32px]">
+				<img
+					class="rounded-xl content-center"
+					src={getSummonerSpellUrl(match, 1)}
+					alt="profile icon"
+				/>
+			</div>
+			<div class="col-span-2 p-1 row-span-1 md:row-span-2 md:row-start-3 rounded-sm min-w-[32px]">
+				<img
+					class="rounded-xl content-center"
+					src={getSummonerSpellUrl(match, 2)}
+					alt="profile icon"
+				/>
+			</div>
+			<div class="col-span-2 p-1 row-span-1 md:row-span-2 rounded-sm min-w-[32px]">
+				<img
+					class="rounded-xl content-center"
+					src={getSummonerSpellUrl(match, 2)}
+					alt="profile icon"
+				/>
+			</div>
+			<div
+				class="col-span-2 p-1 row-span-1 md:row-span-2 row-start-2 md:row-start-3 rounded-sm min-w-[32px]"
 			>
-		</div>
-
-		<div class="row-start-4 col-start-1 col-span-3">
-			<time class="text-sm uppercase dark:text-gray-100 mt-2">
-				{calculateGameLength(match)}
-			</time>
+				<img
+					class="rounded-xl content-center"
+					src={getSummonerSpellUrl(match, 2)}
+					alt="profile icon"
+				/>
+			</div>
 		</div>
 
 		<div class="row-start-4 col-start-6 col-span-2 mx-auto">

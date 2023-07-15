@@ -38,37 +38,17 @@
 	const updateSummoner = async (): Promise<void> => {
 		loading = true;
 
-		const updateSummoner = updateSummonerById(summoner.id);
-		const updateMatches = updateSummonerMatchesBySummonerId(summoner.id);
+		try {
+			await updateSummonerById(summoner.id);
+		} catch (error: any) {
+			displayToast({
+				type: 'error',
+				message: error.message
+			});
+		}
 
 		try {
-			const settledRequests = await Promise.allSettled([updateSummoner, updateMatches]);
-
-			if (settledRequests[0].status === 'rejected') {
-				const updateSummoner = settledRequests[0] as PromiseRejectedResult;
-				updateSummoner.reason;
-
-				if (updateSummoner.reason === undefined) {
-					return;
-				}
-				displayToast({
-					type: 'error',
-					message: updateSummoner.reason
-				});
-			}
-
-			if (settledRequests[0].status === 'rejected') {
-				const updateMatches = settledRequests[1] as PromiseRejectedResult;
-				updateMatches.reason;
-
-				if (updateMatches.reason === undefined) {
-					return;
-				}
-				displayToast({
-					type: 'error',
-					message: updateMatches.reason
-				});
-			}
+			await updateSummonerMatchesBySummonerId(summoner.id);
 		} catch (error: any) {
 			displayToast({
 				type: 'error',
@@ -116,7 +96,7 @@
 				<h3 class="text-base mt-2">Last Updated: {displayDate(summoner.updatedAt)}</h3>
 			</div>
 
-			<div class="row-start-3 col-start-0 col-span-4 p-2 mx-auto">
+			<div class="row-start-3 col-start-0 col-span-4 p-2 m-2">
 				{#if summoner.rankSolo !== ''}
 					<img
 						class="rounded-xl content-center aspect-square w-24"
