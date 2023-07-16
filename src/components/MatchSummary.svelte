@@ -136,39 +136,117 @@
 </script>
 
 <div
-	class="rounded-xl bg-primary-800 px-4 pt-4 before:left-[-38px] before:top-2/4 before:h-6 before:w-6 before:rounded-full sm:relative sm:before:absolute {checkHasSummonerWon(
+	class="rounded-xl bg-primary-800 p-4 before:left-[-38px] before:top-2/4 before:h-6 before:w-6 before:rounded-full sm:relative sm:before:absolute {checkHasSummonerWon(
 		match
 	)
 		? 'before:bg-green-200'
 		: 'before:bg-red-300'}"
 >
-	<div class="grid h-48 grid-cols-12">
-		<div class="col-span-2 grid grid-cols-12 grid-rows-4">
-			<div class="col-span-12 col-start-1 row-start-1">
-				<h3 class="font-bold md:text-xl">{determineGameQueue(match.info[0].queueId)}</h3>
+	<div class="grid grid-cols-12 gap-0">
+		<div class="col-span-4 grid grid-rows-4 md:col-span-2">
+			<div class="col-start-1 row-start-1">
+				<h3 class="text-sm">{determineGameQueue(match.info[0].queueId)}</h3>
 			</div>
 
-			<div class="col-span-12 col-start-1 row-start-2">
-				<h3 class="md:text-md font-semibold">
+			<div class="col-start-1 row-start-2">
+				<h3 class="text-sm">
 					{displayDate(match.info[0].gameEndTimestamp)}
 				</h3>
 			</div>
 
-			<div class="col-span-12 col-start-1 row-start-3">
+			<div class="col-start-1 row-start-3">
 				<time class="mt-2 text-sm uppercase dark:text-gray-100"
 					>{new Date(convertTimestamp(match)).toLocaleTimeString()}</time
 				>
 			</div>
 
-			<div class="col-span-12 col-start-1 row-start-4">
+			<div class="col-start-1 row-start-4">
 				<time class="mt-2 text-sm uppercase dark:text-gray-100">
 					{calculateGameLength(match)}
 				</time>
 			</div>
 		</div>
 
-		<div class="col-span-3 col-start-3 grid grid-cols-12 grid-rows-4 p-3">
-			<div class="col-span-4 col-start-1 row-span-4 row-start-1 min-w-[48px] rounded-sm">
+		<!-- <div class="col-span-3">
+			<div class="relative">
+				<img
+					class="min-w-[64px] max-w-[64px] rounded-xl"
+					src={getChampionIconUrl(match)}
+					alt="champion icon"
+				/>
+
+				<span class="absolute bottom-0 rounded-full bg-primary-900 p-1 text-sm">
+					{getParticipant(match)?.champLevel}
+				</span>
+			</div>
+		</div> -->
+
+		<div class="col-span-3 my-auto grid md:col-span-1">
+			<!-- <img
+				class=" h-full w-full content-center rounded-xl object-cover"
+				src={getSummonerSpellUrl(match, 1)}
+				alt="profile icon"
+			/> -->
+			<!-- <div class="bg-green-600" /> -->
+			<!-- <div class="relative">
+				<img
+					class="min-w-[64px] max-w-[64px] rounded-xl"
+					src={getChampionIconUrl(match)}
+					alt="champion icon"
+				/>
+
+				<span class="absolute bottom-0 rounded-full bg-primary-900 p-1 text-sm">
+					{getParticipant(match)?.champLevel}
+				</span>
+			</div> -->
+			<div class="relative">
+				<img
+					class="h-full w-full content-center rounded-xl object-cover"
+					src={getChampionIconUrl(match)}
+					alt="champion icon"
+				/>
+				<span class="absolute bottom-0 rounded-full bg-primary-900 p-1 text-sm">
+					{getParticipant(match)?.champLevel}
+				</span>
+			</div>
+		</div>
+
+		<div class="col-span-2 my-auto grid grid-cols-2 grid-rows-2 gap-1 md:h-20 md:w-20">
+			<!-- <img
+				class=" h-full w-full content-center rounded-xl object-cover"
+				src={getSummonerSpellUrl(match, 1)}
+				alt="profile icon"
+			/> -->
+			<!-- <div class="bg-green-600" />
+			<div class="bg-green-600" />
+			<div class="bg-green-600" />
+			<div class="bg-green-600" /> -->
+
+			<img
+				class="h-full w-full content-center rounded-sm"
+				src={getSummonerSpellUrl(match, 1)}
+				alt="profile icon"
+			/>
+			<img
+				class=" h-full w-full content-center rounded-sm object-cover"
+				src={getSummonerSpellUrl(match, 1)}
+				alt="profile icon"
+			/>
+
+			<img
+				class=" h-full w-full content-center rounded-sm object-cover"
+				src={getSummonerSpellUrl(match, 1)}
+				alt="profile icon"
+			/>
+			<img
+				class=" h-full w-full content-center rounded-sm object-cover"
+				src={getSummonerSpellUrl(match, 1)}
+				alt="profile icon"
+			/>
+
+			<!-- <div
+				class="col-span-6 col-start-1 row-span-2 row-start-1 max-w-[64px] rounded-sm bg-blue-500"
+			>
 				<div class="relative">
 					<img
 						class="content-center rounded-xl"
@@ -176,19 +254,46 @@
 						alt="champion icon"
 					/>
 
-					<span class="absolute bottom-0 right-0 mx-auto rounded-full bg-primary-900 p-1">
+					<span class="absolute bottom-0 rounded-full bg-primary-900 p-1 text-sm">
 						{getParticipant(match)?.champLevel}
 					</span>
 				</div>
 			</div>
 
-			<div class="bg-green-40 col-span-2 row-span-1 min-w-[32px] rounded-sm p-1 md:row-span-2">
+			<div class="col-span-3 row-span-1 row-start-1 max-w-[32px] rounded-sm">
 				<img
 					class="content-center rounded-xl"
 					src={getSummonerSpellUrl(match, 1)}
 					alt="profile icon"
 				/>
 			</div>
+
+			<div class="col-span-3 row-span-1 row-start-1 max-w-[32px] rounded-sm">
+				<img
+					class="content-center rounded-xl"
+					src={getSummonerSpellUrl(match, 1)}
+					alt="profile icon"
+				/>
+			</div>
+
+			<div class="col-span-3 col-start-7 row-span-1 max-w-[32px] rounded-sm ">
+				<img
+					class="content-center rounded-xl"
+					src={getSummonerSpellUrl(match, 1)}
+					alt="profile icon"
+				/>
+			</div>
+			<div class="col-span-3 col-start-10 row-span-1 max-w-[32px] rounded-sm">
+				<img
+					class="content-center rounded-xl"
+					src={getSummonerSpellUrl(match, 1)}
+					alt="profile icon"
+				/>
+			</div> -->
+
+			<!-- <div class="col-start-1 row-start-3">xdXDXD</div>
+			<div class="col-start-1 row-start-4">xdXDXD</div> -->
+			<!--
 			<div class="col-span-2 row-span-1 min-w-[32px] rounded-sm p-1 md:row-span-2 md:row-start-3">
 				<img
 					class="content-center rounded-xl"
@@ -211,10 +316,10 @@
 					src={getSummonerSpellUrl(match, 2)}
 					alt="profile icon"
 				/>
-			</div>
+			</div> -->
 		</div>
 
-		<div class="col-span-2 col-start-6 row-start-4 mx-auto">
+		<!-- <div class="col-span-2 col-start-6 row-start-4 mx-auto">
 			<button
 				on:click={() => {
 					showMatchDetail = !showMatchDetail;
@@ -226,7 +331,7 @@
 					<ArrowDownCircle class=" mx-auto mt-2 h-10 w-10 rounded-full bg-primary-600" />
 				{/if}
 			</button>
-		</div>
+		</div> -->
 	</div>
 </div>
 

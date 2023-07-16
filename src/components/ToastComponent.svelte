@@ -15,10 +15,10 @@
 </script>
 
 {#if $toasts.length > 0}
-	<div class=" absolute bottom-4 w-full md:bottom-12 md:w-fit md:max-w-screen-md md:pl-4">
+	<div class="fixed bottom-4 w-full md:bottom-12 md:w-fit md:max-w-screen-md md:pl-4 ">
 		{#each $toasts as toast (toast.id)}
 			<div
-				class="my-3 flex rounded-md border-2 align-middle dark:border-none"
+				class="my-3 flex rounded-md border-black align-middle dark:border-none"
 				transition:fly={{ y: 30, duration: 350 }}
 			>
 				<div
@@ -32,7 +32,7 @@
 						<XCircle size="30" />
 					{/if}
 				</div>
-				<div class="rounded-r-md p-3 dark:bg-primary-700">
+				<div class="rounded-r-md p-3 dark:bg-primary-800">
 					{toast.message}
 				</div>
 			</div>
