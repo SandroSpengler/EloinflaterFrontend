@@ -19,8 +19,6 @@
 
 		const newMatches: IMatchData[] = await getMatchesBySummonerPUUID(summoner.puuid, page, size);
 
-		console.log(page, size);
-
 		matches = [...currentMatches, ...newMatches];
 	};
 </script>

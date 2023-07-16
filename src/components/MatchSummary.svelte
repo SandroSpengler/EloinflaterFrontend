@@ -3,19 +3,19 @@
 
 	import { ArrowDownCircle, ArrowUpCircle } from 'svelte-heros-v2';
 
+	import champion from '../ressources/champion.json';
 	import maps from '../ressources/maps.json';
 	import queues from '../ressources/queues.json';
-	import champion from '../ressources/champion.json';
 	import summonerSpell from '../ressources/summoner.json';
 
-	import MatchDetail from './MatchDetail.svelte';
-	import type ISummoner from '../interfaces/ISummoner';
-	import type IMatchData from '../interfaces/IMatch';
+	import type { ChampionDetails, IChampionType } from '../interfaces/IChampionType';
 	import type { IMapType } from '../interfaces/IMapType';
+	import type IMatchData from '../interfaces/IMatch';
+	import type { Participant } from '../interfaces/IMatch';
 	import type { IQueueType } from '../interfaces/IQueueType';
-	import type { IChampionType, ChampionDetails } from '../interfaces/IChampionType';
+	import type ISummoner from '../interfaces/ISummoner';
 	import type { ISummonerSpellType, SummonerDetails } from '../interfaces/ISummonerSpellType';
-	import type { Champion, Participant } from '../interfaces/IMatch';
+	import MatchDetail from './MatchDetail.svelte';
 
 	export let summoner: ISummoner;
 	export let match: IMatchData;
@@ -136,7 +136,7 @@
 </script>
 
 <div
-	class="rounded-xl bg-primary-800 px-4 pt-4 sm:relative sm:before:absolute sm:before:left-[-35px] sm:before:top-2/4 sm:before:h-4 sm:before:w-4 sm:before:rounded-full {checkHasSummonerWon(
+	class="rounded-xl bg-primary-800 px-4 pt-4 before:left-[-38px] before:top-2/4 before:h-6 before:w-6 before:rounded-full sm:relative sm:before:absolute {checkHasSummonerWon(
 		match
 	)
 		? 'before:bg-green-200'
