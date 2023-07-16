@@ -9,7 +9,7 @@
 </header>
 
 <body
-	class="bg-white dark:bg-neutral-900 dark:text-white sm:text-base md:text-lg focus:outline-none"
+	class="bg-white focus:outline-none dark:bg-neutral-900 dark:text-white sm:text-base md:text-lg"
 >
 	<main>
 		<slot />

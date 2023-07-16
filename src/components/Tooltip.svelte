@@ -28,7 +28,7 @@
 </div>
 
 {#if isHovered}
-	<div style="top: {y}px; left: {x}px;" class="bg-primary-800 absolute p-2 text-base rounded-md">
+	<div style="top: {y}px; left: {x}px;" class="absolute rounded-md bg-primary-800 p-2 text-base">
 		{title}
 	</div>
 {/if}

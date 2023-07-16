@@ -26,16 +26,16 @@
 </script>
 
 <div class="container mx-auto px-2 py-12">
-	<div class="md:mx-4 grid gap-4 sm:grid-cols-12">
+	<div class="grid gap-4 sm:grid-cols-12 md:mx-1">
 		<div class="relative col-span-12 space-y-6 md:px-4">
 			<div
-				class="relative col-span-12 space-y-12 md:px-4 before:dark:bg-gray-700 sm:col-span-8 sm:space-y-8 before:absolute sm:before:-left-3 sm:before:bottom-0 sm:before:top-2 sm:before:w-0.5"
+				class="relative col-span-12 space-y-12 before:absolute before:dark:bg-gray-700 sm:col-span-8 sm:space-y-8 sm:before:-left-3 sm:before:bottom-0 sm:before:top-2 sm:before:w-0.5 md:px-4"
 			>
 				{#each matches as match}
 					<Match {match} {summoner} />
 				{/each}
-				<div class="flex flex-col p-4 rounded-xl bg-primary-800">
-					<button class="w-32 mx-auto" on:click={() => loadMoreMatches(matches, summoner)}
+				<div class="flex flex-col rounded-xl bg-primary-800 p-4">
+					<button class="mx-auto w-32" on:click={() => loadMoreMatches(matches, summoner)}
 						>Load More</button
 					>
 				</div>

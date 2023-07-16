@@ -9,7 +9,7 @@
 </script>
 
 <div
-	class="flex mx-auto my-64 dark:bg-primary-700 max-w-3xl p-4 border-2 dark:border-none rounded-sm"
+	class="mx-auto my-64 flex max-w-3xl rounded-sm border-2 p-4 dark:border-none dark:bg-primary-700"
 >
 	{#if $page.status === 500}
 		<h2 class="text-lg">

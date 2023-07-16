@@ -11,19 +11,19 @@
 	};
 </script>
 
-<div class="grid grid-cols-2 bg-primary-800 p-3 mb-4">
+<div class="mb-4 grid grid-cols-2 bg-primary-800 p-3">
 	<div class="text-xl">Matches analyzed</div>
 
-	<div class="text-xl text-right font-bold">{totalMatchCount(summoner)}</div>
+	<div class="text-right text-xl font-bold">{totalMatchCount(summoner)}</div>
 </div>
 
-<div class="grid grid-cols-2 bg-primary-800 p-3 mb-4">
+<div class="mb-4 grid grid-cols-2 bg-primary-800 p-3">
 	<div class="text-md">Tabis bought</div>
 
 	<div class="text-md text-right font-bold">{summoner.tabisCount}</div>
 </div>
 
-<div class="grid grid-cols-2 bg-primary-800 p-3 mb-4">
+<div class="mb-4 grid grid-cols-2 bg-primary-800 p-3">
 	<div class="text-md">Zhonya's bought</div>
 
 	<div class="text-md text-right font-bold">{summoner.zhonaysCount}</div>
@@ -36,5 +36,5 @@
 
 	<div class="text-md mt-5">Casted</div>
 
-	<div class="text-md text-right mt-5 font-bold">{summoner.exhaustCastCount}</div>
+	<div class="text-md mt-5 text-right font-bold">{summoner.exhaustCastCount}</div>
 </div>

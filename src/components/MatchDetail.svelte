@@ -5,6 +5,6 @@
 	export let match: IMatchData;
 </script>
 
-<div class="p-4 bg-primary-800 rounded-xl" transition:fly={{ y: 100, duration: 750 }}>
+<div class="rounded-xl bg-primary-800 p-4" transition:fly={{ y: 100, duration: 750 }}>
 	{match._id}
 </div>

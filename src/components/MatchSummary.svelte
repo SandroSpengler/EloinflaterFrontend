@@ -136,92 +136,94 @@
 </script>
 
 <div
-	class="px-4 pt-4 sm:relative sm:before:absolute sm:before:left-[-35px] sm:before:top-2/4 sm:before:h-4 sm:before:w-4 sm:before:rounded-full rounded-xl bg-primary-800 {checkHasSummonerWon(
+	class="rounded-xl bg-primary-800 px-4 pt-4 sm:relative sm:before:absolute sm:before:left-[-35px] sm:before:top-2/4 sm:before:h-4 sm:before:w-4 sm:before:rounded-full {checkHasSummonerWon(
 		match
 	)
 		? 'before:bg-green-200'
 		: 'before:bg-red-300'}"
 >
-	<div class="grid grid-cols-12 h-48">
-		<div class="grid grid-cols-12 grid-rows-4 col-span-2">
-			<div class="row-start-1 col-start-1 col-span-12">
-				<h3 class="md:text-xl font-bold">{determineGameQueue(match.info[0].queueId)}</h3>
+	<div class="grid h-48 grid-cols-12">
+		<div class="col-span-2 grid grid-cols-12 grid-rows-4">
+			<div class="col-span-12 col-start-1 row-start-1">
+				<h3 class="font-bold md:text-xl">{determineGameQueue(match.info[0].queueId)}</h3>
 			</div>
 
-			<div class="row-start-2 col-start-1 col-span-12">
-				<h3 class="md:text-md font-semibold">{displayDate(match.info[0].gameEndTimestamp)}</h3>
+			<div class="col-span-12 col-start-1 row-start-2">
+				<h3 class="md:text-md font-semibold">
+					{displayDate(match.info[0].gameEndTimestamp)}
+				</h3>
 			</div>
 
-			<div class="row-start-3 col-start-1 col-span-12">
-				<time class="text-sm uppercase dark:text-gray-100 mt-2"
+			<div class="col-span-12 col-start-1 row-start-3">
+				<time class="mt-2 text-sm uppercase dark:text-gray-100"
 					>{new Date(convertTimestamp(match)).toLocaleTimeString()}</time
 				>
 			</div>
 
-			<div class="row-start-4 col-start-1 col-span-12">
-				<time class="text-sm uppercase dark:text-gray-100 mt-2">
+			<div class="col-span-12 col-start-1 row-start-4">
+				<time class="mt-2 text-sm uppercase dark:text-gray-100">
 					{calculateGameLength(match)}
 				</time>
 			</div>
 		</div>
 
-		<div class="grid grid-cols-12 grid-rows-4 p-3 col-span-3 col-start-3">
-			<div class="row-start-1 col-start-1 col-span-4 row-span-4 rounded-sm min-w-[48px]">
+		<div class="col-span-3 col-start-3 grid grid-cols-12 grid-rows-4 p-3">
+			<div class="col-span-4 col-start-1 row-span-4 row-start-1 min-w-[48px] rounded-sm">
 				<div class="relative">
 					<img
-						class="rounded-xl content-center"
+						class="content-center rounded-xl"
 						src={getChampionIconUrl(match)}
 						alt="champion icon"
 					/>
 
-					<span class="absolute p-1 mx-auto bottom-0 right-0 rounded-full bg-primary-900">
+					<span class="absolute bottom-0 right-0 mx-auto rounded-full bg-primary-900 p-1">
 						{getParticipant(match)?.champLevel}
 					</span>
 				</div>
 			</div>
 
-			<div class="col-span-2 p-1 row-span-1 md:row-span-2 bg-green-40 rounded-sm min-w-[32px]">
+			<div class="bg-green-40 col-span-2 row-span-1 min-w-[32px] rounded-sm p-1 md:row-span-2">
 				<img
-					class="rounded-xl content-center"
+					class="content-center rounded-xl"
 					src={getSummonerSpellUrl(match, 1)}
 					alt="profile icon"
 				/>
 			</div>
-			<div class="col-span-2 p-1 row-span-1 md:row-span-2 md:row-start-3 rounded-sm min-w-[32px]">
+			<div class="col-span-2 row-span-1 min-w-[32px] rounded-sm p-1 md:row-span-2 md:row-start-3">
 				<img
-					class="rounded-xl content-center"
+					class="content-center rounded-xl"
 					src={getSummonerSpellUrl(match, 2)}
 					alt="profile icon"
 				/>
 			</div>
-			<div class="col-span-2 p-1 row-span-1 md:row-span-2 rounded-sm min-w-[32px]">
+			<div class="col-span-2 row-span-1 min-w-[32px] rounded-sm p-1 md:row-span-2">
 				<img
-					class="rounded-xl content-center"
+					class="content-center rounded-xl"
 					src={getSummonerSpellUrl(match, 2)}
 					alt="profile icon"
 				/>
 			</div>
 			<div
-				class="col-span-2 p-1 row-span-1 md:row-span-2 row-start-2 md:row-start-3 rounded-sm min-w-[32px]"
+				class="col-span-2 row-span-1 row-start-2 min-w-[32px] rounded-sm p-1 md:row-span-2 md:row-start-3"
 			>
 				<img
-					class="rounded-xl content-center"
+					class="content-center rounded-xl"
 					src={getSummonerSpellUrl(match, 2)}
 					alt="profile icon"
 				/>
 			</div>
 		</div>
 
-		<div class="row-start-4 col-start-6 col-span-2 mx-auto">
+		<div class="col-span-2 col-start-6 row-start-4 mx-auto">
 			<button
 				on:click={() => {
 					showMatchDetail = !showMatchDetail;
 				}}
 			>
 				{#if showMatchDetail}
-					<ArrowUpCircle class=" mx-auto mt-2 w-10 h-10 rounded-full bg-primary-600" />
+					<ArrowUpCircle class=" mx-auto mt-2 h-10 w-10 rounded-full bg-primary-600" />
 				{:else}
-					<ArrowDownCircle class=" mx-auto mt-2 w-10 h-10 rounded-full bg-primary-600" />
+					<ArrowDownCircle class=" mx-auto mt-2 h-10 w-10 rounded-full bg-primary-600" />
 				{/if}
 			</button>
 		</div>

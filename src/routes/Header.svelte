@@ -2,10 +2,10 @@
 </script>
 
 <div class="flex flex-row justify-between p-5">
-	<div class="sm:text-xl md:text-2xl font-bold">
+	<div class="font-bold sm:text-xl md:text-2xl">
 		<h1><a href="/">Eloinflater</a></h1>
 	</div>
-	<div class="flex flex-row justify-evenly items-center sm:text-base md:text-xl ">
+	<div class="flex flex-row items-center justify-evenly sm:text-base md:text-xl">
 		<h2 class="mx-3">
 			<a href="/data/euw/leaderboard">Leaderboard</a>
 		</h2>
