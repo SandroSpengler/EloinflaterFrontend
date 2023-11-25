@@ -4,7 +4,7 @@
 	import ToastComponent from '../components/ToastComponent.svelte';
 </script>
 
-<header class="bg-white dark:bg-primary-800 dark:text-white">
+<header>
 	<Header />
 </header>
 

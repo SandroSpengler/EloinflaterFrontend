@@ -1,8 +1,6 @@
 <script lang="ts">
 	import moment from 'moment';
 
-	import { ArrowDownCircle, ArrowUpCircle } from 'svelte-heros-v2';
-
 	import champion from '../ressources/champion.json';
 	import maps from '../ressources/maps.json';
 	import queues from '../ressources/queues.json';
@@ -28,7 +26,7 @@
 	let showMatchDetail: boolean = false;
 
 	/**
-	 * Makes the Date human readable
+	 * converts the timestamp to a human readable date
 	 *
 	 * @param dateToDisplay
 	 */
@@ -167,38 +165,7 @@
 			</div>
 		</div>
 
-		<!-- <div class="col-span-3">
-			<div class="relative">
-				<img
-					class="min-w-[64px] max-w-[64px] rounded-xl"
-					src={getChampionIconUrl(match)}
-					alt="champion icon"
-				/>
-
-				<span class="absolute bottom-0 rounded-full bg-primary-900 p-1 text-sm">
-					{getParticipant(match)?.champLevel}
-				</span>
-			</div>
-		</div> -->
-
 		<div class="col-span-3 my-auto grid md:col-span-1">
-			<!-- <img
-				class=" h-full w-full content-center rounded-xl object-cover"
-				src={getSummonerSpellUrl(match, 1)}
-				alt="profile icon"
-			/> -->
-			<!-- <div class="bg-green-600" /> -->
-			<!-- <div class="relative">
-				<img
-					class="min-w-[64px] max-w-[64px] rounded-xl"
-					src={getChampionIconUrl(match)}
-					alt="champion icon"
-				/>
-
-				<span class="absolute bottom-0 rounded-full bg-primary-900 p-1 text-sm">
-					{getParticipant(match)?.champLevel}
-				</span>
-			</div> -->
 			<div class="relative">
 				<img
 					class="h-full w-full content-center rounded-xl object-cover"
@@ -212,16 +179,6 @@
 		</div>
 
 		<div class="col-span-2 my-auto grid grid-cols-2 grid-rows-2 gap-1 md:h-20 md:w-20">
-			<!-- <img
-				class=" h-full w-full content-center rounded-xl object-cover"
-				src={getSummonerSpellUrl(match, 1)}
-				alt="profile icon"
-			/> -->
-			<!-- <div class="bg-green-600" />
-			<div class="bg-green-600" />
-			<div class="bg-green-600" />
-			<div class="bg-green-600" /> -->
-
 			<img
 				class="h-full w-full content-center rounded-sm"
 				src={getSummonerSpellUrl(match, 1)}
@@ -243,95 +200,7 @@
 				src={getSummonerSpellUrl(match, 1)}
 				alt="profile icon"
 			/>
-
-			<!-- <div
-				class="col-span-6 col-start-1 row-span-2 row-start-1 max-w-[64px] rounded-sm bg-blue-500"
-			>
-				<div class="relative">
-					<img
-						class="content-center rounded-xl"
-						src={getChampionIconUrl(match)}
-						alt="champion icon"
-					/>
-
-					<span class="absolute bottom-0 rounded-full bg-primary-900 p-1 text-sm">
-						{getParticipant(match)?.champLevel}
-					</span>
-				</div>
-			</div>
-
-			<div class="col-span-3 row-span-1 row-start-1 max-w-[32px] rounded-sm">
-				<img
-					class="content-center rounded-xl"
-					src={getSummonerSpellUrl(match, 1)}
-					alt="profile icon"
-				/>
-			</div>
-
-			<div class="col-span-3 row-span-1 row-start-1 max-w-[32px] rounded-sm">
-				<img
-					class="content-center rounded-xl"
-					src={getSummonerSpellUrl(match, 1)}
-					alt="profile icon"
-				/>
-			</div>
-
-			<div class="col-span-3 col-start-7 row-span-1 max-w-[32px] rounded-sm ">
-				<img
-					class="content-center rounded-xl"
-					src={getSummonerSpellUrl(match, 1)}
-					alt="profile icon"
-				/>
-			</div>
-			<div class="col-span-3 col-start-10 row-span-1 max-w-[32px] rounded-sm">
-				<img
-					class="content-center rounded-xl"
-					src={getSummonerSpellUrl(match, 1)}
-					alt="profile icon"
-				/>
-			</div> -->
-
-			<!-- <div class="col-start-1 row-start-3">xdXDXD</div>
-			<div class="col-start-1 row-start-4">xdXDXD</div> -->
-			<!--
-			<div class="col-span-2 row-span-1 min-w-[32px] rounded-sm p-1 md:row-span-2 md:row-start-3">
-				<img
-					class="content-center rounded-xl"
-					src={getSummonerSpellUrl(match, 2)}
-					alt="profile icon"
-				/>
-			</div>
-			<div class="col-span-2 row-span-1 min-w-[32px] rounded-sm p-1 md:row-span-2">
-				<img
-					class="content-center rounded-xl"
-					src={getSummonerSpellUrl(match, 2)}
-					alt="profile icon"
-				/>
-			</div>
-			<div
-				class="col-span-2 row-span-1 row-start-2 min-w-[32px] rounded-sm p-1 md:row-span-2 md:row-start-3"
-			>
-				<img
-					class="content-center rounded-xl"
-					src={getSummonerSpellUrl(match, 2)}
-					alt="profile icon"
-				/>
-			</div> -->
 		</div>
-
-		<!-- <div class="col-span-2 col-start-6 row-start-4 mx-auto">
-			<button
-				on:click={() => {
-					showMatchDetail = !showMatchDetail;
-				}}
-			>
-				{#if showMatchDetail}
-					<ArrowUpCircle class=" mx-auto mt-2 h-10 w-10 rounded-full bg-primary-600" />
-				{:else}
-					<ArrowDownCircle class=" mx-auto mt-2 h-10 w-10 rounded-full bg-primary-600" />
-				{/if}
-			</button>
-		</div> -->
 	</div>
 </div>
 

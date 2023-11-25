@@ -1,3 +1,11 @@
 {
-	"typescript.tsdk": "node_modules/typescript/lib"
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"workbench.colorCustomizations": {
+		"sideBar.foreground": "#d2c5c5",
+		"gitDecoration.ignoredResourceForeground": "#9c4d4d",
+		"editor.background": "#111420",
+		"activityBar.background": "#083518",
+		"titleBar.activeBackground": "#0B4A22",
+		"titleBar.activeForeground": "#F0FDF5"
+	}
 }

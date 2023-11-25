@@ -109,6 +109,7 @@ const handleHTTPError = async (response: Response, endpoint: requestEndpoint): P
 	if (httpError.httpStatusCode === 500) {
 		return `Please try again later: ${httpError.message}`;
 	}
+	
 	if (httpError.httpStatusCode === 400 || httpError.httpStatusCode === 409) {
 		if (endpoint === 'match') {
 			return 'Matches already updated recently';
@@ -121,6 +122,7 @@ const handleHTTPError = async (response: Response, endpoint: requestEndpoint): P
 		if (endpoint === 'match') {
 			return 'No matches found for this summoner';
 		}
+
 		return 'The requested Summoner does not exist';
 	}
 

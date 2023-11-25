@@ -1,19 +1,17 @@
 <script>
+	import { Navbar, NavBrand, NavLi, NavUl, NavHamburger, Button } from 'flowbite-svelte';
 </script>
 
-<div class="flex flex-row justify-between p-5">
-	<div class="font-bold sm:text-xl md:text-2xl">
-		<h1><a href="/">Eloinflater</a></h1>
-	</div>
-	<div class="flex flex-row items-center justify-evenly sm:text-base md:text-xl">
-		<h2 class="mx-3">
-			<a href="/data/euw/leaderboard">Leaderboard</a>
-		</h2>
-		<h2 class="mx-3">
-			<a href="/">Live Game</a>
-		</h2>
-	</div>
-</div>
+<Navbar fluid={true}>
+	<NavBrand href="/">
+		<h1 class="self-center whitespace-nowrap font-bold sm:text-xl md:text-2xl">Eloinflater</h1>
+	</NavBrand>
+	<NavHamburger />
+	<NavUl class="sm:mx-8 md:mx-0">
+		<NavLi href="/data/euw/leaderboard" class="sm:text-base md:text-xl">Leaderboard</NavLi>
+		<NavLi href="/" class="sm:text-base md:text-xl">Live Game</NavLi>
+	</NavUl>
+</Navbar>
 
 <style lang="postcss">
 </style>

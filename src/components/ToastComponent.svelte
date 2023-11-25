@@ -1,40 +1,38 @@
 <script lang="ts">
 	import { toasts } from '../stores/NotificationToast';
+	import { Toast } from 'flowbite-svelte';
 
-	import { XCircle, InformationCircle } from 'svelte-heros-v2';
-	import { fly } from 'svelte/transition';
+	import { ExclamationCircleOutline, InfoCircleOutline } from 'flowbite-svelte-icons';
 	import type { toast } from '../types/toast';
 
-	const determineIconBackgroundColor = (toast: toast): string => {
-		if (toast.type === 'info') return 'dark:bg-orange-700 bg-orange-300';
-		if (toast.type === 'error') return 'dark:bg-red-600 bg-red-300';
-		if (toast.type === 'success') return 'bg-green-800';
+	const determineIconBackgroundColor = (toast: toast): 'green' | 'red' | undefined => {
+		if (toast.type === 'error') return 'red';
+		if (toast.type === 'success') return 'green';
 
-		return 'bg-red-300';
+		return;
 	};
 </script>
 
 {#if $toasts.length > 0}
-	<div class="fixed bottom-4 w-full md:bottom-12 md:w-fit md:max-w-screen-md md:pl-4 ">
+	<div class="fixed bottom-4 w-full md:bottom-12 md:w-fit md:max-w-screen-md md:pl-4">
 		{#each $toasts as toast (toast.id)}
-			<div
-				class="my-3 flex rounded-md border-black align-middle dark:border-none"
-				transition:fly={{ y: 30, duration: 350 }}
-			>
-				<div
-					class="rounded-l-md p-3
-					{determineIconBackgroundColor(toast)}"
-				>
-					{#if toast.type === 'info'}
-						<InformationCircle size="30" />
-					{/if}
-					{#if toast.type === 'error'}
-						<XCircle size="30" />
-					{/if}
-				</div>
-				<div class="rounded-r-md p-3 dark:bg-primary-800">
-					{toast.message}
-				</div>
+			<div>
+				<Toast color={determineIconBackgroundColor(toast)} class="mb-2 dark:text-white">
+					<svelte:fragment slot="icon">
+						{#if toast.type === 'info'}
+							<InfoCircleOutline class="h-6 w-6" />
+						{/if}
+
+						{#if toast.type === 'error'}
+							<ExclamationCircleOutline class="h-6 w-6" />
+						{/if}
+
+						<span class="sr-only">Check icon</span>
+					</svelte:fragment>
+					<p class="text-base">
+						{toast.message}
+					</p>
+				</Toast>
 			</div>
 		{/each}
 	</div>

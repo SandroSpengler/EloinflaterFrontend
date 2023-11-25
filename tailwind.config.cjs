@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-	content: ['./src/**/*.{html,js,svelte,ts}'],
+	content: [
+		'./src/**/*.{html,js,svelte,ts}',
+		'./node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}',
+		'./node_modules/flowbite-svelte-icons/**/*.{html,js,svelte,ts}'
+	],
 	presets: [],
 	darkMode: 'media', // or 'class'
 	theme: {
@@ -264,8 +268,7 @@ module.exports = {
 					700: '#2b2b62',
 					800: '#1a1a3b',
 					900: '#090914'
-				},
-				secondary: ''
+				}
 			}
 		},
 		fill: ({ theme }) => ({
@@ -971,5 +974,5 @@ module.exports = {
 			50: '50'
 		}
 	},
-	plugins: []
+	plugins: [require('flowbite/plugin')]
 };
